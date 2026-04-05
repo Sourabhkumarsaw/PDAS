@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="panel-grid dashboard-grid">
+  <article class="card">
+    <h1>Your decision history</h1>
+    {% if decisions %}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Confidence</th>
+              <th>Stress</th>
+              <th>Risk</th>
+              <th>Explanation</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for decision in decisions %}
+              <tr>
+                <td>{{ decision['title'][:50] }}</td>
+                <td>{{ decision['category'] }}</td>
+                <td>{{ decision['confidence_level'] }}</td>
+                <td>{{ decision['stress_level'] }}</td>
+                <td><span class="badge {{ decision['risk_level']|lower if decision['risk_level'] else 'low' }}">{{ decision['risk_level'] or 'Pending' }}</span></td>
+                <td class="explanation" title="{{ decision['explanation'] or 'Awaiting analysis' }}">{{ decision['explanation'] or 'Awaiting analysis' }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p>No decisions logged yet. Add one to generate an audit trail.</p>
+    {% endif %}
+  </article>
+
+  <aside class="card report-card">
+    <h2>Latest audit report</h2>
+    {% if report %}
+      <p><strong>Risk summary:</strong> {{ report['summary'] }}</p>
+      <p><strong>Detected patterns:</strong> {{ report['detected_patterns'] }}</p>
+      <p><strong>Improvement suggestions:</strong> {{ report['improvement_suggestions'] }}</p>
+    {% else %}
+      <p>Your audit report will appear after the first analyzed decision.</p>
+    {% endif %}
+  </aside>
+</section>
+{% endblock %}

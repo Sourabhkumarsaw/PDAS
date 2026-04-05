@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="panel-grid dashboard-grid admin-layout">
+  <article class="card">
+    <h1>Admin module</h1>
+    <p>Rule weights follow the fixed project scoring model. Admins can manage rule notes and activation status for governance visibility.</p>
+    <form method="post" class="form-grid">
+      {% for rule in rules %}
+        <fieldset class="rule-card">
+          <legend>{{ rule['name'] }} ({{ rule['weight'] }} pts)</legend>
+          <label>
+            Guidance note
+            <textarea name="description_{{ rule['id'] }}" rows="3">{{ rule['description'] }}</textarea>
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" name="active_{{ rule['id'] }}" {% if rule['is_active'] %}checked{% endif %} />
+            Active for governance view
+          </label>
+        </fieldset>
+      {% endfor %}
+      <button class="button primary" type="submit">Save Rule Notes</button>
+    </form>
+  </article>
+
+  <aside class="card report-card">
+    <h2>System analytics</h2>
+    <p><strong>Analyzed decisions:</strong> {{ analytics['decision_count'] or 0 }}</p>
+    <p><strong>High-risk decisions:</strong> {{ analytics['high_risk_count'] or 0 }}</p>
+    <p><strong>Average risk points:</strong> {{ '%.2f'|format(analytics['average_risk'] or 0) }}</p>
+  </aside>
+</section>
+{% endblock %}

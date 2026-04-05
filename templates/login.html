@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="form-card">
+  <h1>Login</h1>
+  <form method="post" class="form-grid">
+    <label>Username <input type="text" name="username" required /></label>
+    <label>Password <input type="password" name="password" required /></label>
+    <button class="button primary" type="submit">Login</button>
+  </form>
+  <p class="hint">Default admin account: <code>admin</code> / <code>admin123</code></p>
+</div>
+{% endblock %}

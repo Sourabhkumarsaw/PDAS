@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="form-card wide">
+  <h1>Log a decision</h1>
+  <form method="post" class="form-grid two-column">
+    <label>
+      Decision title
+      <input type="text" name="title" required />
+    </label>
+    <label>
+      Category
+      <select name="category" required>
+        {% for category in categories %}
+          <option value="{{ category }}">{{ category }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>
+      Confidence level (1–10)
+      <input type="number" name="confidence_level" min="1" max="10" required />
+    </label>
+    <label>
+      Stress level (1–10)
+      <input type="number" name="stress_level" min="1" max="10" required />
+    </label>
+    <label class="full-width">
+      Description
+      <textarea name="description" rows="6" required></textarea>
+    </label>
+    <label class="full-width">
+      Outcome (optional, later)
+      <textarea name="outcome" rows="3"></textarea>
+    </label>
+    <div class="full-width">
+      <button class="button primary" type="submit">Analyze Decision</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDAS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <a class="brand" href="{{ url_for('index') }}">PDAS</a>
+        <p class="subtitle">AI-Assisted Personal Decision Audit System</p>
+      </div>
+      <nav>
+        {% if current_user %}
+          <a href="{{ url_for('dashboard') }}">Dashboard</a>
+          <a href="{{ url_for('add_decision') }}">Add Decision</a>
+          {% if current_user['role'] == 'admin' %}
+            <a href="{{ url_for('admin_rules') }}">Admin</a>
+          {% endif %}
+          <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+          <a href="{{ url_for('login') }}">Login</a>
+          <a href="{{ url_for('register') }}">Register</a>
+        {% endif %}
+      </nav>
+    </header>
+
+    <main class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flash-stack">
+            {% for category, message in messages %}
+              <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  </body>
+</html>

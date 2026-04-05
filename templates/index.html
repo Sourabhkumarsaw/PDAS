@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+  <div>
+    <span class="eyebrow">Decision logging + analysis system</span>
+    <h1>Audit decisions with explainable AI support.</h1>
+    <p>
+      PDAS helps users log decisions, detect risky patterns, and review audit-ready explanations.
+      It is a decision-support tool, not a decision-maker, chatbot, prediction engine, or diagnosis tool.
+    </p>
+    <div class="actions">
+      <a class="button primary" href="{{ url_for('register') }}">Create Account</a>
+      <a class="button secondary" href="{{ url_for('login') }}">Log In</a>
+    </div>
+  </div>
+  <div class="card grid-list">
+    <h2>Core Modules</h2>
+    <ul>
+      <li><strong>User Module:</strong> login, add decisions, view history</li>
+      <li><strong>Decision Analysis Engine:</strong> TF-IDF similarity, rule-based scoring, pattern detection</li>
+      <li><strong>Audit Report Generator:</strong> risk summary, detected patterns, suggestions</li>
+      <li><strong>Admin Module:</strong> configure rule notes and view analytics</li>
+    </ul>
+  </div>
+</section>
+
+<section class="panel-grid">
+  <article class="card">
+    <h3>Risk score logic</h3>
+    <ul>
+      <li>High stress (&gt;4) → +2 risk</li>
+      <li>Low confidence (≤2) → +2 risk</li>
+      <li>Repeated similar decisions → +2 risk</li>
+      <li>Negative past outcome → +3 risk</li>
+    </ul>
+  </article>
+  <article class="card">
+    <h3>Risk levels</h3>
+    <ul>
+      <li>0–3 → Low Risk</li>
+      <li>4–6 → Medium Risk</li>
+      <li>7+ → High Risk</li>
+    </ul>
+  </article>
+  <article class="card">
+    <h3>Included AI techniques</h3>
+    <ul>
+      <li>NLP with TF-IDF + cosine similarity</li>
+      <li>Rule-based risk scoring</li>
+      <li>Pattern detection across historical decisions</li>
+    </ul>
+  </article>
+</section>
+{% endblock %}

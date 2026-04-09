@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import sqlite3
 from collections import Counter
 from datetime import datetime
@@ -15,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent
 DATABASE = BASE_DIR / "pdas.db"
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "pdas-demo-secret-key"
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "pdas-demo-secret-key")
 
 CATEGORIES = ["Academic", "Financial", "Personal", "Work"]
 EMOTION_WORDS = {
@@ -477,4 +478,6 @@ def admin_rules() -> Any:
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    debug = os.environ.get("FLASK_ENV") == "development"
+    app.run(host="0.0.0.0", port=port, debug=debug)
